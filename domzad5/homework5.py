@@ -1,7 +1,11 @@
 while True:
         num=input("введите число от 0 до 15 :")
         try:
+<<<<<<< HEAD
             num = str(num)
+=======
+            num = float(num)
+>>>>>>> main
             if num < 16:
                 if num <=9 :
                     print("Ты серьезно, давай еще разок)")
