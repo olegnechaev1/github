@@ -15,3 +15,4 @@ while True:
              
         except ValueError:
             print("неверный формат данных или число")
+            break 
