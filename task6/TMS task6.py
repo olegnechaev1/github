@@ -1,20 +1,24 @@
-numbers =[i for i in range(20)]
+numbers = [i for i in range(20)]
 print(numbers)
     
 
 def some_num(numbers:int)->int:
-    numbers=int(input("число:"))
-    numbers =[i for i in range(numbers+1)]
+    numbers = int(input("число:"))
+    numbers = [i for i in range(numbers+1)]
     return(numbers)
 print(some_num(numbers))
 
 
 import datetime
-def current_time ():
-    print(datetime.datetime.now())
-    return current_time
-a =[current_time() for i in range(1,50)]
-print(a)
+def current_time (num):
+    time = []
+    for i in range(num):
+        date = datetime.datetime.now()
+        i = date.time().strftime("%H:%M:%S")
+        time.append(i)
+    print(time)
+    return time
+a = [i for i in current_time(6)]
 
 
 my_list =[1,1,1,2,3,1,2]
