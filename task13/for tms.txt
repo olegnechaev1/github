@@ -1,0 +1,48 @@
+CREATE TABLE telephones(
+    telephone_id INTEGER PRIMARY KEY,
+    stamp TEXT NOT NULL,
+    model TEXT NOT NULL
+    );
+
+INSERT INTO telephones(stamp, model) VALUES ("Apple", "12");
+INSERT INTO telephones(stamp, model) VALUES ("Apple", "13");   
+INSERT INTO telephones(stamp, model) VALUES ("Sumsung", "A51");
+INSERT INTO telephones(stamp, model) VALUES ("Sumsung", "S20");  
+
+CREATE TABLE specification(
+    specification_id INTEGER PRIMARY KEY,
+    diagonal TEXT NOT NULL,
+    camera TEXT NOT NULL,
+    ram TEXT NOT NULL,
+    memory TEXT NOT NULL,
+    durability TEXT NOT NULL 
+    );
+
+INSERT INTO specification(diagonal, camera,ram,memory,durability) 
+VALUES ("11 inches", "14 mp", "16 gigs", "32 gigabytes", "850 y.e");
+
+INSERT INTO specification(diagonal, camera,ram,memory,durability)     
+VALUES ("12 inches", "13 mp", "8 gigs", "64 gigabytes", "800 y.e");
+
+INSERT INTO specification(diagonal, camera,ram,memory,durability)     
+VALUES ("13 inches", "15 mp", "8 gigs", "512 gigabytes", "1000 y.e");
+
+INSERT INTO specification(diagonal, camera,ram,memory,durability)     
+VALUES ("14 inches", "15 mp", "8 gigs", "128 gigabytes", "900 y.e");
+
+CREATE TABLE price(
+    id INTEGER PRIMARY KEY,
+    telephone INTEGER NOT NULL,
+    specification INTEGER NOT NULL,
+    FOREIGN KEY (telephone) REFERENCES telephones(telephone_id),
+    FOREIGN KEY (specification) REFERENCES specification(specification_id) 
+    );
+INSERT INTO price(telephone, specification) VALUES (1, 1);
+INSERT INTO price(telephone, specification) VALUES (2, 2);
+INSERT INTO price(telephone, specification) VALUES (3, 3);
+INSERT INTO price(telephone, specification) VALUES (4, 4);
+
+SELECT  A.stamp,A.model,B.diagonal,B.camera,B.ram,B.memory,B.durability  FROM price JOIN telephones A , specification B WHERE id==1 and telephone_id==1 and specification_id==1 ;
+SELECT  A.stamp,A.model,B.diagonal,B.camera,B.ram,B.memory,B.durability  FROM price JOIN telephones A , specification B WHERE id==2 and telephone_id==2 and specification_id==2 ;
+SELECT  A.stamp,A.model,B.diagonal,B.camera,B.ram,B.memory,B.durability  FROM price JOIN telephones A , specification B WHERE id==3 and telephone_id==3 and specification_id==3 ;
+SELECT  A.stamp,A.model,B.diagonal,B.camera,B.ram,B.memory,B.durability  FROM price JOIN telephones A , specification B WHERE id==4 and telephone_id==4 and specification_id==4 ;
