@@ -23,7 +23,7 @@ CREATE TABLE telephones(
     telephone_id INTEGER PRIMARY KEY,
     stamp TEXT NOT NULL,
     model TEXT NOT NULL,
-    telephone_specification INTEGER NOT NULL,
+    telephone_specification INTEGER UNIQUE NOT NULL,
     FOREIGN KEY (telephone_specification) REFERENCES specifications(specification_id)
     );
 INSERT INTO telephones(stamp, model, telephone_specification) VALUES ("Apple", "12", 1);
