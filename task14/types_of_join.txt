@@ -1,0 +1,33 @@
+CREATE TABLE specifications(
+    specification_id SERIAL PRIMARY KEY,
+    diagonal TEXT NOT NULL,
+    camera TEXT NOT NULL,
+    ram TEXT NOT NULL,
+    memory TEXT NOT NULL,
+    durability TEXT NOT NULL 
+    );
+
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('11 inches', '14 mp', '16 gigs', '32 gigabytes', '850 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('12 inches', '13 mp', '8 gigs', '64 gigabytes', '800 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('13 inches', '15 mp', '8 gigs', '512 gigabytes', '1000 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('14 inches', '15 mp', '8 gigs', '128 gigabytes', '900 y.e'); 
+
+CREATE TABLE telephones(
+    telephone_id SERIAL PRIMARY KEY,
+    stamp TEXT NOT NULL,
+    model TEXT NOT NULL,
+    telephone_specification INTEGER,
+    FOREIGN KEY (telephone_specification) REFERENCES specifications(specification_id)
+    );
+
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '12', 1);
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '13', 1);   
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Sumsung', 'A51', 4);
+INSERT INTO telephones(stamp, model,telephone_specification) VALUES ('Sumsung', 'S20', 4);
+INSERT INTO telephones(stamp, model) VALUES ('Sumsung', 'S21');
+
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_specification=specification_id;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones LEFT OUTER JOIN specifications B ON telephone_specification=specification_id;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones RIGHT OUTER JOIN specifications B ON telephone_specification=specification_id;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones FULL OUTER JOIN specifications B ON telephone_specification=specification_id;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones CROSS JOIN specifications B;
