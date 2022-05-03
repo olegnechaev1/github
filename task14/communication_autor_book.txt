@@ -1,0 +1,23 @@
+CREATE TABLE authors(
+id SERIAL PRIMARY KEY,
+name TEXT NOT NULL
+);
+
+CREATE TABLE books(
+book_id SERIAL PRIMARY KEY,
+name_book TEXT NOT NULL,
+year INTEGER NOT NULL,
+author_id INTEGER NOT NULL,
+FOREIGN KEY (author_id) REFERENCES authors(id));
+
+INSERT INTO authors(name) VALUES ('Владимир Маяковский');
+INSERT INTO authors(name) VALUES ('Александр Пушкин');
+
+
+INSERT INTO books(name_book, year,author_id) VALUES ('Облако в штанах', 1915,1);
+INSERT INTO books(name_book, year,author_id) VALUES ('Сказка о рыбаке и рыбке', 1835,2);
+INSERT INTO books(name_book, year,author_id) VALUES ('Евгений Онегин', 1835,2);
+
+
+SELECT name from authors WHERE id in (SELECT author_id FROM books WHERE author_id in(SELECT count(author_id) FROM books GROUP BY (author_id) having COUNT(*)>=ALL(SELECT count(*) FROM books GROUP BY (author_id)))); 
+SELECT MAX (A.name) AS name_authors,count(name_book) AS num_books  from books JOIN authors A ON  author_id=id  WHERE id in (SELECT author_id FROM books WHERE author_id in(SELECT count(author_id) FROM books GROUP BY (author_id) having COUNT(*)>=ALL(SELECT count(*) FROM books GROUP BY (author_id))));

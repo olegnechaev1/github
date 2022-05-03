@@ -1,0 +1,108 @@
+#one to one
+CREATE TABLE specifications(
+    specification_id SERIAL PRIMARY KEY,
+    diagonal TEXT NOT NULL,
+    camera TEXT NOT NULL,
+    ram TEXT NOT NULL,
+    memory TEXT NOT NULL,
+    durability TEXT NOT NULL 
+    );
+
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('11 inches', '14 mp', '16 gigs', '32 gigabytes', '850 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('12 inches', '13 mp', '8 gigs', '64 gigabytes', '800 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('13 inches', '15 mp', '8 gigs', '512 gigabytes', '1000 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('14 inches', '15 mp', '8 gigs', '128 gigabytes', '900 y.e');
+
+CREATE TABLE telephones(
+    telephone_id SERIAL PRIMARY KEY,
+    stamp TEXT NOT NULL,
+    model TEXT NOT NULL,
+    telephone_specification INTEGER UNIQUE NOT NULL,
+    FOREIGN KEY (telephone_specification) REFERENCES specifications(specification_id)
+    );
+
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '12', 1);
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '13', 2);   
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Sumsung', 'A51', 3);
+INSERT INTO telephones(stamp, model,telephone_specification) VALUES ('Sumsung', 'S20', 4);
+
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=1 and specification_id=1;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=2 and specification_id=2;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=3 and specification_id=3;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=4 and specification_id=4;
+ 
+ # one to many
+CREATE TABLE specifications(
+    specification_id SERIAL PRIMARY KEY,
+    diagonal TEXT NOT NULL,
+    camera TEXT NOT NULL,
+    ram TEXT NOT NULL,
+    memory TEXT NOT NULL,
+    durability TEXT NOT NULL 
+    );
+
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('11 inches', '14 mp', '16 gigs', '32 gigabytes', '850 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('12 inches', '13 mp', '8 gigs', '64 gigabytes', '800 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('13 inches', '15 mp', '8 gigs', '512 gigabytes', '1000 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('14 inches', '15 mp', '8 gigs', '128 gigabytes', '900 y.e'); 
+
+CREATE TABLE telephones(
+    telephone_id SERIAL PRIMARY KEY,
+    stamp TEXT NOT NULL,
+    model TEXT NOT NULL,
+    telephone_specification INTEGER  NOT NULL,
+    FOREIGN KEY (telephone_specification) REFERENCES specifications(specification_id)
+    );
+
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '12', 1);
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Apple', '13', 1);   
+INSERT INTO telephones(stamp, model, telephone_specification) VALUES ('Sumsung', 'A51', 4);
+INSERT INTO telephones(stamp, model,telephone_specification) VALUES ('Sumsung', 'S20', 4);
+
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=1 and specification_id=1;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=2 and specification_id=1;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=3 and specification_id=4;
+SELECT stamp,model,B.diagonal,B.camera,B.ram,B.memory,B.durability FROM telephones JOIN specifications B ON telephone_id=4 and specification_id=4;
+
+#many to many
+CREATE TABLE specifications(
+    specification_id SERIAL PRIMARY KEY,
+    diagonal TEXT NOT NULL,
+    camera TEXT NOT NULL,
+    ram TEXT NOT NULL,
+    memory TEXT NOT NULL,
+    durability TEXT NOT NULL 
+    );
+
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('11 inches', '14 mp', '16 gigs', '32 gigabytes', '850 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('12 inches', '13 mp', '8 gigs', '64 gigabytes', '800 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('13 inches', '15 mp', '8 gigs', '512 gigabytes', '1000 y.e');
+INSERT INTO specifications(diagonal, camera,ram,memory,durability) VALUES ('14 inches', '15 mp', '8 gigs', '128 gigabytes', '900 y.e'); 
+
+CREATE TABLE telephones(
+    telephone_id SERIAL PRIMARY KEY,
+    stamp TEXT NOT NULL,
+    model TEXT NOT NULL
+    );
+
+INSERT INTO telephones(stamp, model) VALUES ('Apple', '12');
+INSERT INTO telephones(stamp, model) VALUES ('Apple', '13');   
+INSERT INTO telephones(stamp, model) VALUES ('Sumsung', 'A51');
+INSERT INTO telephones(stamp, model) VALUES ('Sumsung', 'S20');
+
+CREATE TABLE shops(
+    shop_id SERIAL PRIMARY KEY,
+    first_id INTEGER  NOT NULL,
+    second_id INTEGER  NOT NULL,
+    FOREIGN KEY (first_id) REFERENCES telephones(telephone_id),
+    FOREIGN KEY (second_id) REFERENCES specifications(specification_id)
+    );
+
+INSERT INTO shops(first_id, second_id) VALUES (1, 3);
+INSERT INTO shops(first_id, second_id) VALUES (1, 4);   
+INSERT INTO shops(first_id, second_id) VALUES (2 ,2);
+INSERT INTO shops(first_id, second_id) VALUES (3, 1);
+INSERT INTO shops(first_id, second_id) VALUES (4, 1);
+
+SELECT telephones.stamp, telephones.model,specifications.diagonal,specifications.camera,specifications.ram,specifications.memory,specifications.durability FROM shops JOIN telephones ON first_id=telephone_id JOIN specifications ON second_id=specification_id  ;
+
