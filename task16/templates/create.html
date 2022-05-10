@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 style="width: 100%">{% block title %} Record of courses {% endblock %}</h1>
+    <form method="post">
+        <p>
+            <label for="courses_name">Courses_name</label>
+            <input type="number" name="courses_name"
+                   placeholder="Courses name">
+            </input>
+        </p>
+
+        <p>
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname"
+                   placeholder="First Name">
+            </input>
+        </p>
+
+        <p>
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname"
+                   placeholder="Last Name">
+            </input>
+        </p>
+
+        <p>
+            
+        </p>
+        </p>
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+    </form>
+{% endblock %}
