@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <span class="title">
+        <h1>{% block title %} {{ courses.courses_name }} courses{% endblock %}</h1>
+    </span>
+    <div class="content">
+            <div class="Courses">
+                <p><b>#{{ courses.id }}</b></p>
+                <b>
+                    <p class="name">{{ courses.courses_name }}  </p>
+                </b>
+                <form method="post">
+                    <p>
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname"
+                               placeholder="First Name">
+                        </input>
+                    </p>
+            
+                    <p>
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname"
+                               placeholder="Last Name">
+                        </input>
+                    </p>
+            
+                    <p>
+                        <button type="submit">Submit</button>
+                    </p>
+                </form>  
+
+                </div>
+            </div>
+    </div>
+{% endblock %}
