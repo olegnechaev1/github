@@ -24,10 +24,10 @@ class Students(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
-    students_id = db.Column(db.Integer,db.ForeignKey(Courses.id))
+    courses_id = db.Column(db.Integer,db.ForeignKey(Courses.id))
     
     def __repr__(self):
-        return f'<{self.id},{self.firstname},{self.lastname},{self.students_id}>'
+        return f'<{self.id},{self.firstname},{self.lastname},{self.courses_id}>'
     
     
 @app.route('/')
@@ -38,8 +38,9 @@ def index():
 
 @app.route('/inform/')
 def inform():
-    students = Students.query.join(Courses,Students.students_id==Courses.id).all()
-    return render_template('inform.html', students=students)
+    courses = Courses.query.all()
+    students = Students.query.all()
+    return render_template('inform.html', students=students,courses=courses)
 
 
 @app.route('/<int:id>/',methods=('GET', 'POST'))
@@ -51,7 +52,7 @@ def courses(id):
         lastname = request.form['lastname']
         student = Students(firstname=firstname,
                           lastname=lastname,
-                          students_id=courses_name)
+                          courses_id=courses_name)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('inform'))

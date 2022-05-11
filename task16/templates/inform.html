@@ -4,13 +4,15 @@
     <h1 class="title">{% block title %} Information about the record {% endblock %}</h1>
     <div class="content">
         {% for student in students %}
-            <div class="student">
-                <p><b>#{{ student.id }}</b></p>
-                <b>
-                    <p class="name">{{ student.firstname }} {{ student.lastname }}</p>
-                </b>
-                <p><b>Number of courses:</b>{{ student.students_id }}</p>
-                
+            <div class=".Courses">
+            <p><b>#{{ student.id }}</b></p>
+            <b>
+            <p class="name">{{ student.firstname }} {{ student.lastname }}
+                {% for course in courses %}
+                    {% if student.courses_id == course.id %}
+                    - успешно записан на курсы:<span style="color:#FF0000">{{ course.courses_name }}</span></p>
+                    {% endif %}
+                {% endfor %}    
                 </div>
             </div>
         {% endfor %}
