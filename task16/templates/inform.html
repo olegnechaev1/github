@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="title">{% block title %} Information about the record {% endblock %}</h1>
+    <div class="content">
+        {% for student in students %}
+            <div class=".Courses">
+            <p><b>#{{ student.id }}</b></p>
+            <b>
+            <p class="name">{{ student.first_name }} {{ student.last_name }} record the courses :</p>
+                {% for list in student.lists.all() %}
+                <p <span style="color:#FF0000">{{list.courses_name }}</span></p>
+                {% endfor %}    
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
