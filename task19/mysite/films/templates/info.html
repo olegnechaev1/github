@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<p style="border:2px solid #555;">
+<div class="front">
+   {% for film in film_list %}
+   <b><em>{{ film.author }}:</em></b>
+    {{ film.comment }}
+   <br>
+   Date: {{ film.date }}
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'like-film' %}" method="POST" class="ui form">
+        <p hidden>{% csrf_token %} </p>
+        <input type='hidden' name='film_id' value='{{film.id}}'>
+        {% if film_list not in film.liked.all %}
+            <button  class="btn btn-danger"type="submit">Like</button>
+        {%endif%}
+        <strong> {{film.liked.all.count}}Likes</strong>    
+        </form>
+        {%endif%}     
+</div>
+</p>
+<p style="border:2px solid #555;">
+</p>
+{% endfor %}
+{% if request.user.is_authenticated %}
+<br>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add comment
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add comment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="post">
+      <p hidden>  {% csrf_token %} </p>
+         <div class="col-7">
+            {{form}}
+         </div>
+      <button type="submit" class="btn btn-primary">Save comment</button>   
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </form> 
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}     
+{% endblock %}
