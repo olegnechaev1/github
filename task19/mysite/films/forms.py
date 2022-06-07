@@ -6,7 +6,7 @@ from .models import Film
 User = get_user_model()
 
 
-class Filmsform(forms.ModelForm):
+class FilmForm(forms.ModelForm):
     class Meta:
         model = Film
         fields = ('comment',)
