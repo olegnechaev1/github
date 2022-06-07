@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-4.5 mt-3">
+        <form action="" method="post" id="c-form">
+            <p hidden>  {% csrf_token %} </p>
+            {{form}}
+            <p> <button type="submit" class="btn btn-primary mt-3">Сохранить</button></p>
+        </form>
+{%url 'cars' as url_cars %}
+<p><a href="{{url_cars}}"class="btn btn-danger" >отмена</a></p>
+{% endblock %}

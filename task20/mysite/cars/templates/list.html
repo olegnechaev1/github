@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+    
+{% block content %}
+{% for carListing in carListing_list %}
+Ваш заказ:
+  <div> Модель:<b><em>{{ carListing.car_brend }}</em></b></div>
+  <div> Кузов и привод: <b><em>{{ carListing.car_model}}</em></b></div>
+   
+   <div>Обьем и год выпуска:<b> <em>{{ carListing.car_engine}}</em></b></div>
+    <div>Время:<b><em>{{ carListing.date}}</em></b></div>
+{% endfor %}   
+{%url 'carListing' as url_carListing %}
+<p><a href="{{url_carListing}}"class="btn btn-danger" >назад</a></p>
+<div class=" col-6"style="margin-left: 220px">
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSusF_nZFrLKOo79qH5RiEiH-lbZm7Ux1e3g&usqp=CAU"></p>
+</div>
+{% endblock %}
