@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-3">Авторизация</h1>
+    <div class="col-4.5 mt-3">
+    <form id="add_form" method="post">
+        <p hidden>  {% csrf_token %} </p>
+        {{form}}
+        <p> <button type="submit" class="btn btn-primary mt-3">Вход</button></p>
+    </form>   
+</div>
+{%url 'films' as url_films %}
+<p><a href="{{url_films}}"class="btn btn-danger" >назад</a></p>
+{% endblock %}

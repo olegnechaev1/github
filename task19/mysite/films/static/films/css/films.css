@@ -1,0 +1,39 @@
+body{
+    background-color:#a2aaf0;
+} 
+
+aside{
+    float:left;
+    background-color:#cfc6c4;
+    width: 20%;
+    padding: 2,5%;
+    height: auto;
+    color: #111111;
+    border-right: 5px solid #4d4d4d;
+}  
+
+aside img{
+    width: 100%;
+    float:left;
+}
+
+aside .logo{
+    font-size: 25px;
+    margin-left: 10px;
+    font-weight: bold;
+    position: relative;
+    color: rgb(224, 37, 37);
+    top: -5px;
+}
+
+main.front h6{
+    width: 100px;	height: 100px;
+}
+
+main.col-4{
+    margin-left: 100px;}
+
+body.p {
+    border: 1px solid red; 
+    padding: 5px; 
+}     
