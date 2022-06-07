@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .models import Film, Like
-from.forms import AuthUserform, RegistrUserform, Filmsform
+from.forms import AuthUserform, RegistrUserform, FilmForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.views.generic import CreateView, ListView
@@ -31,7 +31,7 @@ class FilmCreateView(CreateView, ListView):
     login_url = reverse_lazy('login_page')
     model = Film
     template_name = 'info.html'
-    form_class = Filmsform
+    form_class = FilmForm
     context_object_name = 'film_list'
     success_url = reverse_lazy('films')
 
@@ -55,9 +55,9 @@ class MyprojectLoginView(LoginView):
         return self.success_url
     
     
-class RegistrUserView( CreateView):
+class RegistrUserView(CreateView):
     model = User
-    template_name = 'registr.html'
+    template_name = 'register.html'
     form_class = RegistrUserform
     success_url = reverse_lazy('films')
     
@@ -75,4 +75,3 @@ class RegistrUserView( CreateView):
     
 class MyprojectLogout(LogoutView):
     next_page = reverse_lazy('films')    
-
