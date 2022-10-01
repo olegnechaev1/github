@@ -1,0 +1,43 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <table>
+        <tbody>
+            {% for a in articles %}
+            <tr>
+                <td>
+                    <a href="{{ a.link }}">{{ a.title }}</a>
+                </td>
+                
+                <td>
+                    <p>
+                        Published: {{ a.published }}
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        Scraped: {{ a.created_at }}
+                    </p>
+                </td>
+                <td>   
+                    {% if request.user.is_authenticated %}
+                        
+                           <form action= "{% url "remove" a.id  %}" method="POST">
+                            <p hidden>{% csrf_token %} </p>  
+                            <input type="hidden" name="type" value="{{type}}">
+                            <input type="hidden" name="url_from" value="{{request.path}}">
+                            <button  class="btn btn-outline-dark"type="submit">Удалить</button>
+                            </form>
+                        
+                    {%endif%}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}
