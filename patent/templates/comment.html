@@ -1,0 +1,68 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<div class="row">
+    <table>
+        <tbody>
+            {% for a in comment_list %}
+            <tr>
+                <td>
+                    <p>
+                        Автор: {{ a.author}}
+                    </p>
+                </td>
+                
+                <td>
+                    <p>
+                        Комментарий: {{ a.comment_like}}<br>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        Дата: {{ a.date }}
+                    </p>
+                
+                 
+                {% if request.user.is_authenticated %}
+        <form action="{% url 'like-comment' %}" method="POST" class="ui form">
+        <p hidden>{% csrf_token %} </p>
+        <input type='hidden' name='comment_id' value='{{a.id}}'>
+        {% if comment_list not in a.liked.all %}
+            <button  class="btn btn-danger"type="submit">Like</button>
+            {%endif%}
+        <strong> {{a.liked.all.count}}Likes</strong>    
+        </form>
+        {%endif%}
+    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>  
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Добавить Комментарии
+  </button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Добавить Комментарии</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="" method="post">
+        <p hidden>  {% csrf_token %} </p>
+        {{form}}
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form> 
+        </div>
+      </div>
+    </div>
+  </div>    
+
+
+{% endblock content %}
